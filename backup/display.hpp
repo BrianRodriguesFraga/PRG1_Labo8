@@ -13,8 +13,7 @@
 #include <vector>
 
 // Déclaration des fonctions
-void afficherBienvenue();
-void afficherFin();
+std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<unsigned int>> vv);
 
 
 #endif /* display_hpp */

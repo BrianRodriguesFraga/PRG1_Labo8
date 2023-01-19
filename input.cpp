@@ -7,35 +7,52 @@
 
 #include <iostream>
 #include <limits>
+#include <cstdlib>
+#include <iomanip>
 
 #include "input.hpp"
 
 using namespace std;
 
+// Fonctions interne au fichier //
+
 void emptyBuffer() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-void quitProg() {
-    cout << endl << "Presser ENTER pour quitter le programme" << endl;
-    emptyBuffer();
-}
+// ---------------------------- //
+//
+// Fonctions accessibles depuis le fichier .h //
 
-unsigned int inputVal (int min, int max, const string& msg, const string& msgError) {
-    unsigned int val;
-    bool errorFlux;
-    
+void demanderEntreeUtilisateur(const int& typeMessage ,const unsigned int& min, const unsigned int& max) {
+    // Déclaration de variables //
+    const int   WIDTH               = 12;
+    string      message                 ;
+    bool        errorFlux               ;
+    int         entreeUtilisateur       ;
+
+    // définition du type de message à afficher //
+    switch (typeMessage) {
+        case 0: message = "largeur";
+            break;
+        case 1: message = "hauteur";
+            break;
+        case 2: message = "nbre snakes";
+            break;
+        default: message = "??? (erreur !)";
+    }
+
+    // Demande et vérifie l'entrée utilisateur //
     do {
-        cout << msg << " [" << min << ".." << max << "] : ";
+        cout << setw(WIDTH) << left << message << right << " [" << min << ".." << max << "] : ";
         errorFlux = false;
-        
-        if (not(cin >> val) or min > int(val) or int(val) > max) {
+        if (not(cin >> entreeUtilisateur) or min > int(entreeUtilisateur) or int(entreeUtilisateur) > max) {
             errorFlux = true;
             cin.clear();
-            cout << val << " : " << msgError << endl;
+            cout << entreeUtilisateur << " : " << "Cette valeur est incorrect." << endl;
         }
         emptyBuffer();
     }
     while (errorFlux);
-    return val;
 }
+

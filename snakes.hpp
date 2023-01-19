@@ -8,21 +8,20 @@
 #ifndef snakes_hpp
 #define snakes_hpp
 
-#include <stdio.h>
 #include <vector>
 
 class Snake {
 public:
-    Snake(unsigned int randomX, unsigned int randomY, unsigned int direction, unsigned int lengthSnake);
-    std::vector<std::vector<unsigned int>> createdSnake();
-    
+    void snakesCreation();
+    void snakesJouer();
+    void SnakeBiteCheck(std::vector<std::vector<unsigned int>> Snakes);
+
 private:
-    unsigned int coordX;
-    unsigned int coordY;
-    unsigned int cap;
-    unsigned int length;
+    unsigned int id;
+    unsigned int posX;
+    unsigned int posY;
+    unsigned int longueur;
 };
 
-//std::vector<std::vector<unsigned int>> Snake(unsigned int randomX, unsigned int randomY, unsigned int direction, unsigned int lengthSnake);
 
 #endif /* snakes_hpp */

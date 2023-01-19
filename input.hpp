@@ -8,11 +8,6 @@
 #ifndef input_hpp
 #define input_hpp
 
-#include <stdio.h>
-
-void emptyBuffer();
-void quitProg();
-
-unsigned int inputVal(int min, int max, const std::string& msg, const std::string& msgError);
+void demanderEntreeUtilisateur(const int& typeMessage, const unsigned int& MIN, const unsigned int& MAX);
 
 #endif /* input_hpp */
