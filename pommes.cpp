@@ -7,7 +7,7 @@
 Pomme::Pomme(const unsigned id,
              unsigned int posX,
              unsigned int posY,
-             bool estMangee);
+             bool estMangee) { }
 
 // --- get et set --- //
 

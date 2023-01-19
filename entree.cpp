@@ -46,7 +46,7 @@ void demanderEntreeUtilisateur(const int& typeMessage ,const unsigned int& min, 
     do {
         cout << setw(WIDTH) << left << message << right << " [" << min << ".." << max << "] : ";
         errorFlux = false;
-        if (not(cin >> entreeUtilisateur) or min > int(entreeUtilisateur) or int(entreeUtilisateur) > max) {
+        if (!(cin >> entreeUtilisateur) || min > int(entreeUtilisateur) || int(entreeUtilisateur) > max) {
             errorFlux = true;
             cin.clear();
             cout << entreeUtilisateur << " : " << "Cette valeur est incorrect." << endl;

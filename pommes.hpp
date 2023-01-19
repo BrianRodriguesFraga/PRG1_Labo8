@@ -5,31 +5,30 @@
 #ifndef TP8_POMMES_HPP
 #define TP8_POMMES_HPP
 
+#include "types.hpp"
+
+class Snake { };
+
 class Pomme {
 public:
-    // --- Constructeur --- //
-    Pomme(const unsigned int id,
-          unsigned int posX,
-          unsigned int posY,
-          bool estMangee);
+    // Constructeur //
+    Pomme(unsigned int id, position_t position, Snake* snake);
 
-    // --- Get et set --- //
+    // Get et set //
+    unsigned int getId();
 
-    unsigned int getId() const;
-    unsigned int getPosX();
-    unsigned int getPosY();
+    // Retourne la position de la pomme
+    position_t getPosition();
 
-    void setPosX();
-    void setPosY();
+    // Défini la position de la pomme
+    void setPosition(position_t position);
 
 private:
-    const unsigned int id;
-    unsigned int posX;
-    unsigned int posY;
-    bool estMangee;
+    unsigned int id;
+
+    Snake* serpent;
+
+    position_t position;
 };
-
-
-
 
 #endif //TP8_POMMES_HPP
