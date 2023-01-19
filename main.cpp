@@ -1,20 +1,29 @@
-//
-//  main.cpp
-//  8_snake
-//
-//  Created by Laurent Ernst on 14.01.23.
-//
+/*
+  ---------------------------------------------------------------------------
+  Fichier     : main.cpp
+  Nom du labo : TP8 - Snake
+  Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
+  Date        : 15.11.2022
+  But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
+                déplacements, les serpents s’attaquent entre eux.
+                La partie se termine lorsque qu’un seul serpent est en jeu.
 
+  Remarque(s) : à compléter
 
-#include "display.hpp"
-#include "input.hpp"
+  Compilateur : gcc version 11.3.0
+  IDE         : Clion 2022.3
+  ---------------------------------------------------------------------------
+*/
+
+#include "affichage.hpp"
+#include "entree.hpp"
 #include "snakes.hpp"
-
+#include "pommes.hpp"
 
 using namespace std;
 
 int main() {
-    // Déclarations de variables //
+    // --- Déclarations de variables --- //
     const unsigned int  MIN_LARGEUR    = 50;
     const unsigned int  MIN_HAUTEUR    = 50;
     const unsigned int  MIN_NBR_SNAKES = 2;
@@ -24,9 +33,9 @@ int main() {
 
     enum TypeMessage {largeur, hauteur, nbrSnakes};
 
-    // Début du programme //
+    // --- Début du programme --- //
     afficherBienvenue();
-    demanderEntreeUtilisateur(largeur ,MIN_LARGEUR, MAX_LARGEUR);
+    demanderEntreeUtilisateur(largeur, MIN_LARGEUR, MAX_LARGEUR);
     demanderEntreeUtilisateur(hauteur, MIN_HAUTEUR, MAX_HAUTEUR);
     demanderEntreeUtilisateur(nbrSnakes, MIN_NBR_SNAKES, MAX_NBR_SNAKES);
 
@@ -34,8 +43,8 @@ int main() {
     //snakesJouer();
 
     afficherFin();
-    return EXIT_SUCCESS;
 
+    return EXIT_SUCCESS;
 }
 
 
@@ -47,26 +56,6 @@ int main() {
 
 
 //int main() {
-//    // Invitation à choisir la taille de l'écran et le nombre de serpents
-//    cout << "Ce programme ..." << endl;
-//    const string msgWidth = "Largeur";
-//    const string msgHeigth = "Hauteur ";
-//    const string msgNbrSnake = "Nombre de serpents";
-//    const string msgError = "Valeur non valide !";
-//
-//
-//    const unsigned int widthMin = 50;
-//    const unsigned int heigthMin = 50;
-//    const unsigned int widthMax = 1200;
-//    const unsigned int heigthMax = 800;
-//    const unsigned int snakeMin = 2;
-//    const unsigned int snakeMax = 1000;
-//
-//    const unsigned int width = inputVal(widthMin, widthMax, msgWidth, msgError);
-//    const unsigned int heigth = inputVal(heigthMin, heigthMax, msgHeigth, msgError);
-//    const unsigned int nbrSnakes = inputVal(snakeMin, snakeMax, msgNbrSnake, msgError);
-//
-//    // Création des serpents
 //    unsigned int lengthSnake = 10;
 //
 //    for (unsigned int i = 0; i < nbrSnakes; i++) {

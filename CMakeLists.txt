@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(TP8 main.cpp display.cpp input.cpp snakes.cpp)
+add_executable(TP8 main.cpp affichage.cpp entree.cpp snakes.cpp pommes.cpp pommes.hpp)
 
 target_link_libraries(
         TP8

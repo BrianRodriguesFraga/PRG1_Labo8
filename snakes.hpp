@@ -12,15 +12,25 @@
 
 class Snake {
 public:
+    // Constructeur //
+    Snake(const unsigned int id, unsigned int posX, unsigned int posY, bool vie);
+
+    // Set et get //
+    unsigned int getId() const;
+    unsigned int getPosX();
+    unsigned int getPosY();
+    bool getVie();
+
+    // Fonctions //
     void snakesCreation();
     void snakesJouer();
-    void SnakeBiteCheck(std::vector<std::vector<unsigned int>> Snakes);
+    void SnakeBiteCheck(std::vector<unsigned int> Snakes);
 
 private:
     unsigned int id;
     unsigned int posX;
     unsigned int posY;
-    unsigned int longueur;
+    bool vie;
 };
 
 
