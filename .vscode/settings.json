@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "limits": "cpp",
+        "iostream": "cpp",
+        "xiosbase": "cpp",
+        "iosfwd": "cpp",
+        "vector": "cpp",
+        "thread": "cpp"
+    }
+}

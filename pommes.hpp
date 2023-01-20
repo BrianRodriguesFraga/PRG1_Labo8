@@ -23,6 +23,12 @@ public:
     // Défini la position de la pomme
     void setPosition(position_t position);
 
+    // Retourne le serpent
+    Snake* getSnake();
+
+    // Méthode exécuté après chaque frame (rendu graphique)
+    void draw(Render* renderer);
+
 private:
     unsigned int id;
 

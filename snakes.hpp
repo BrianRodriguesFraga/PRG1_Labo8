@@ -11,12 +11,16 @@
 #include <vector>
 
 #include "types.hpp"
+#include "render.hpp"
 #include "pommes.hpp"
 
 class Snake {
 public:
     // Constructeur //
     Snake(const unsigned int id, position_t position);
+
+    // Libére la mémoire
+    void free();
 
     // Set et get //
     unsigned int getId() const;
@@ -26,6 +30,12 @@ public:
 
     // Retourne la position du serpent
     position_t getPosition();
+
+    // Définie la position du serpent initial
+    void setPosition(position_t position);
+
+    // Retourne la pomme du serpent
+    Pomme* getPomme();
     
     // Fonctions //
 
@@ -37,16 +47,13 @@ public:
 
     // Coupe le serpent au position x,y
     void split(int x, int y);
-
-
-    // Méthode exécuté au début de la boucle de jeux
-    void start();
+    
 
     // Méthode exécuté pour chaque frame
     void update();
 
     // Méthode exécuté après chaque frame (rendu graphique)
-    void draw();
+    void draw(Render* renderer);
 
 private:
     unsigned int id;
