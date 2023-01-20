@@ -1,9 +1,8 @@
-/*
-  ---------------------------------------------------------------------------
+/*---------------------------------------------------------------------------
   Fichier     : main.cpp
   Nom du labo : TP8 - Snake
   Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
-  Date        : 15.11.2022
+  Date        : 21.01.2022
   But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
@@ -12,8 +11,7 @@
 
   Compilateur : gcc version 11.3.0
   IDE         : Clion 2022.3
-  ---------------------------------------------------------------------------
-*/
+  ---------------------------------------------------------------------------*/
 
 #include <iostream>
 #include <limits>
@@ -54,7 +52,7 @@ int askForValue(string message, const int min, const int max)
 
     if (!check)
     {
-      cin.clear(); 
+      cin.clear();
       cout << "La valeur entrée est incorrect." << endl;
     }
 
@@ -65,10 +63,10 @@ int askForValue(string message, const int min, const int max)
 }
 
 
-int main() 
+int main()
 {
   App* program;
-    
+
   // --- Début du programme --- //
   cout << "Ce programme ..." << endl;
 
@@ -98,38 +96,3 @@ int main()
 
   return EXIT_SUCCESS;
 }
-
-//int main() {
-//    unsigned int lengthSnake = 10;
-//
-//    for (unsigned int i = 0; i < nbrSnakes; i++) {
-//
-//        Random direction(0,3);
-//        unsigned int directionRandom = direction.drawNumber();
-//
-//        Random x(0,100);
-//        unsigned int randomX = x.drawNumber();
-//
-//        Random y(0,100);
-//        unsigned int randomY = y.drawNumber();
-//
-//        Snake fSnake(randomX, randomY, directionRandom, lengthSnake);
-//
-//        vector<vector<unsigned int>> vSnake = fSnake.createdSnake();
-//
-//        // Affichage pour les tests
-//        cout << "Snake # " << i << ", Direction : " << directionRandom <<  endl;
-//
-//
-//        for (unsigned int i = 0; i < 10; i++) {
-//            cout << "[";
-//            cout << vSnake[i][0];
-//            cout << ", ";
-//            cout << vSnake[i][1];
-//            cout << ", ";
-//            cout << vSnake[i][2];
-//            cout << "],";
-//            }
-//        cout << "]" << endl << endl;
-//    }
-//}
