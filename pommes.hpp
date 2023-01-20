@@ -1,13 +1,11 @@
 /*---------------------------------------------------------------------------
-  Fichier     : pommes.hpp
+  Fichiers    : pommes.hpp et pommes.cpp
   Nom du labo : TP8 - Snake
   Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
   Date        : 20.01.2022
   But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
-
-  Remarque(s) : à compléter
 
   Compilateur : gcc version 11.3.0
   IDE         : Clion 2022.3
@@ -23,10 +21,11 @@ class Snake;
 
 class Pomme {
 public:
-    // Constructeur //
+    // ----- Constructeur ----- //
+
     Pomme(position_t position, Snake* snake);
 
-    // Get et set //
+    // ----- Get et set ----- //
 
     // Retourne la position de la pomme
     position_t getPosition();
@@ -37,8 +36,10 @@ public:
     // Retourne le serpent
     Snake* getSnake();
 
+    // ----- Méthodes ----- //
+
     // Méthode exécuté après chaque frame (rendu graphique)
-    void draw(Render* render);
+    void draw(Render* render) const;
 
 private:
     Snake* serpent;

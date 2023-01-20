@@ -1,13 +1,11 @@
 /*---------------------------------------------------------------------------
-  Fichier     : render.hpp
+  Fichiers    : render.hpp et render.cpp
   Nom du labo : TP8 - Snake
   Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
   Date        : 20.01.2022
   But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
-
-  Remarque(s) : à compléter
 
   Compilateur : gcc version 11.3.0
   IDE         : Clion 2022.3
@@ -23,23 +21,31 @@
 
 class Render
 {
-    public:
-        Render(dim_t wsize, int scale);
+public:
+    // ----- Constructeur ----- //
 
-        ~Render();
+    Render(dim_t wsize, int scale);
 
-        void draw_board();
+    // ----- Destructeur ----- //
 
-        void update();
+    ~Render();
 
-        SDL_Renderer* getRenderer();
+    // ----- Get et set ----- //
 
-        SDL_Window* getWindow();
+    SDL_Renderer* getRenderer();
 
-    private:
-        SDL_Window* window;
+    SDL_Window* getWindow();
 
-        SDL_Renderer* renderer;
+    // ----- Méthodes ----- //
+
+    void draw_board();
+
+    void update();
+
+private:
+    SDL_Window* window;
+
+    SDL_Renderer* renderer;
 
 };
 

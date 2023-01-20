@@ -1,18 +1,3 @@
-/*---------------------------------------------------------------------------
-  Fichier     : app.cpp
-  Nom du labo : TP8 - Snake
-  Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
-  Date        : 20.01.2022
-  But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
-                déplacements, les serpents s’attaquent entre eux.
-                La partie se termine lorsque qu’un seul serpent est en jeu.
-
-  Remarque(s) : à compléter
-
-  Compilateur : gcc version 11.3.0
-  IDE         : Clion 2022.3
-  ---------------------------------------------------------------------------*/
-
 #include <chrono>
 #include <thread>
 #include <cstdlib>
@@ -64,10 +49,10 @@ void App::initialize()
 
         position_t apple_pos = randomBoardPosition();
 
-        do
+        while (this->snakes[i]->isBody(apple_pos.x, apple_pos.y))
         {
             apple_pos = randomBoardPosition();
-        } while (this->snakes[i]->isBody(apple_pos.x, apple_pos.y));
+        }
 
         this->snakes[i]->getPomme()->setPosition(apple_pos);
     }

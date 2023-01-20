@@ -1,21 +1,5 @@
-/*---------------------------------------------------------------------------
-  Fichier     : snakes.cpp
-  Nom du labo : TP8 - Snake
-  Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
-  Date        : 20.01.2022
-  But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
-                déplacements, les serpents s’attaquent entre eux.
-                La partie se termine lorsque qu’un seul serpent est en jeu.
-
-  Remarque(s) : à compléter
-
-  Compilateur : gcc version 11.3.0
-  IDE         : Clion 2022.3
-  ---------------------------------------------------------------------------*/
-
 #include <iostream>
 #include <vector>
-#include <random>
 
 #include "snakes.hpp"
 #include "app.hpp"
@@ -38,18 +22,26 @@ Snake::Snake(unsigned int id, position_t position, App* app)
 };
 
 
+// ----- Destructeur ----- //
+
+Snake::~Snake()
+{
+    if (this->pomme != nullptr)
+    {
+        delete this->pomme;
+    }
+}
+
 // ----- Get et set ----- //
 
 unsigned int Snake::getId() const {
     return this->id;
 }
 
-// Retourne la longueur du serpent
 int Snake::getLength() {
     return (int) this->positions.size();
 }
 
-// Retourne la position du serpent
 position_t Snake::getPosition() {
     //position du serpent;
     return this->positions[0];
@@ -66,24 +58,14 @@ Pomme* Snake::getPomme() {
     return pomme;
 }
 
-// Méthodes //
 
-// Libére la mémoire
-Snake::~Snake()
-{
-    if (this->pomme != nullptr)
-    {
-        delete this->pomme;
-    }
-}
+// ----- Méthodes ----- //
 
-// Retourne true si la position x, y est la tête
 bool Snake::isHead(int x, int y)
 {
     return (positions.size() == 0) ? false : this->positions[0].x == x && this->positions[0].y == y;
 }
 
-// Retourne true si le serpent occupe cette position
 bool Snake::isBody(int x, int y)
 {
     bool r = false;
@@ -98,7 +80,6 @@ bool Snake::isBody(int x, int y)
     return r;
 }
 
-// Coupe le serpent à la position x, y
 int Snake::split(int x, int y) {
     int i = 0;
     int split_index = -1;
@@ -118,7 +99,6 @@ int Snake::split(int x, int y) {
     }
     return splitted;
 }
-
 
 void Snake::move(MoveType direction)
 {
@@ -154,7 +134,6 @@ void Snake::move(MoveType direction)
     }
 }
 
-
 void Snake::kill(Snake* attacker) {
     positions.resize(0);
     cout << attacker->getId() << " killed " << this->getId() << endl;
@@ -168,8 +147,6 @@ void Snake::addLength(int length) {
     }
 }
 
-
-// Méthode exécutée pour chaque frame
 void Snake::update()
 {
     if (pomme != nullptr && positions.size() > 0)
@@ -238,7 +215,6 @@ void Snake::update()
     }
 }
 
-// Méthode exécutée après chaque frame (rendu graphique)
 void Snake::draw(Render* render)
 {
     SDL_Renderer* renderer = render->getRenderer();

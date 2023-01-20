@@ -7,7 +7,8 @@
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
 
-  Remarque(s) : à compléter
+  Remarques   : Il est connu que dans les autres fichiers que le code affiche des warnings.
+                Cela n'empêche pas le fonctionnement du jeu.
 
   Compilateur : gcc version 11.3.0
   IDE         : Clion 2022.3
@@ -23,7 +24,7 @@
 
 using namespace std;
 
-// Déclaration des constantes
+// ----- Déclaration des constantes ----- //
 const int  MIN_LARGEUR = 50;
 const int  MAX_LARGEUR = 1200;
 
@@ -33,8 +34,8 @@ const int  MAX_HAUTEUR = 800;
 const int  MIN_NBR_SNAKES = 2;
 const int  MAX_NBR_SNAKES = 1000;
 
-
-int askForValue(string message, const int min, const int max)
+// ----- Fonctions ----- //
+int askForValue(const string& message, const int min, const int max)
 {
     int input;
 
@@ -59,15 +60,14 @@ int askForValue(string message, const int min, const int max)
     return input;
 }
 
-
+// ----- Début du programme ----- //
 int main()
 {
     App* program;
 
-    // --- Début du programme --- //
     cout << "Ce programme ..." << endl;
 
-    // Paramètre de la partie
+    // Récupérer les paramètres de la partie
     dim_t board_size;
     board_size.width = askForValue("largeur", MIN_LARGEUR, MAX_LARGEUR);
     board_size.height = askForValue("hauteur", MIN_HAUTEUR, MAX_HAUTEUR);
