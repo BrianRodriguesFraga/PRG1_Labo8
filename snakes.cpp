@@ -2,7 +2,7 @@
   Fichier     : snakes.cpp
   Nom du labo : TP8 - Snake
   Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
-  Date        : 21.01.2022
+  Date        : 20.01.2022
   But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
@@ -22,7 +22,7 @@
 
 using namespace std;
 
-// --- Constructeur --- //
+// ----- Constructeur ----- //
 
 Snake::Snake(unsigned int id, position_t position)
 {
@@ -37,7 +37,8 @@ Snake::Snake(unsigned int id, position_t position)
 };
 
 
-// get et set //
+// ----- Get et set ----- //
+
 unsigned int Snake::getId() const {
     return this->id;
 }
@@ -67,7 +68,7 @@ Pomme* Snake::getPomme() {
 // Méthodes //
 
 // Libére la mémoire
-Snake::~Snake() 
+Snake::~Snake()
 {
     if (this->pomme != nullptr)
     {
@@ -76,7 +77,7 @@ Snake::~Snake()
 }
 
 // Retourne true si la position x, y est la tête
-bool Snake::isHead(int x, int y) 
+bool Snake::isHead(int x, int y)
 {
     return (positions.size() == 0) ? false : this->positions[0].x == x && this->positions[0].y == y;
 }
@@ -161,7 +162,7 @@ void Snake::move(MoveType direction)
 
 
 // Méthode exécutée pour chaque frame
-void Snake::update() 
+void Snake::update()
 {
     if (pomme != nullptr && positions.size() > 0)
     {

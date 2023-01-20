@@ -2,7 +2,7 @@
   Fichier     : pommes.hpp
   Nom du labo : TP8 - Snake
   Auteur(s)   : Ernst Laurent - Rodrigues Fraga Brian
-  Date        : 21.01.2022
+  Date        : 20.01.2022
   But         : Nous souhaitons simuler des serpents allant chercher des pommes. Lors de leurs
                 déplacements, les serpents s’attaquent entre eux.
                 La partie se termine lorsque qu’un seul serpent est en jeu.
