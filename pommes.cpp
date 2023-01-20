@@ -15,17 +15,12 @@
 
 #include "pommes.hpp"
 
-Pomme::Pomme(unsigned int id, position_t position, Snake* snake) {
-    this->id = id;
+Pomme::Pomme(position_t position, Snake* snake) {
     this->position = position;
     this->serpent = snake;
 }
 
 // --- get et set --- //
-
-unsigned int Pomme::getId() const {
-    return this->id;
-}
 
 position_t Pomme::getPosition() {
     return this->position;

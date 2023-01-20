@@ -49,6 +49,10 @@ class App
         // Retourne le serpent à la position x, y sinon retourne null
         Snake* getSnakeAtPosition(int x, int y);
 
+        int getNbrSnakes();
+
+        Snake* getSnake(int index);
+
     private:
         Render* render;
 

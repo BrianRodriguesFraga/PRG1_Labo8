@@ -21,12 +21,13 @@
 #include "types.hpp"
 #include "render.hpp"
 #include "pommes.hpp"
+class App;
 
 
 class Snake {
 public:
     // Constructeur //
-    Snake(unsigned int id, position_t position);
+    Snake(unsigned int id, position_t position, App* app);
 
     // Libére la mémoire
     ~Snake();
@@ -55,11 +56,14 @@ public:
     bool isBody(int x, int y);
 
     // Coupe le serpent à la position x, y
-    void split(int x, int y);
+    int split(int x, int y);
 
     // Fait bouger le serpent dans une direction
     void move(MoveType direction);
 
+    void kill(Snake* attacker);
+
+    void addLength(int length);
 
     // Méthode exécutée pour chaque frame
     void update();
@@ -74,6 +78,7 @@ private:
 
     Pomme* pomme;
 
+    App* app;
 };
 
 

@@ -24,10 +24,9 @@ class Snake;
 class Pomme {
 public:
     // Constructeur //
-    Pomme(unsigned int id, position_t position, Snake* snake);
+    Pomme(position_t position, Snake* snake);
 
     // Get et set //
-    unsigned int getId() const;
 
     // Retourne la position de la pomme
     position_t getPosition();
@@ -42,8 +41,6 @@ public:
     void draw(Render* render);
 
 private:
-    unsigned int id;
-
     Snake* serpent;
 
     position_t position;

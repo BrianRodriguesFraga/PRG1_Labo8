@@ -23,23 +23,18 @@
 using namespace std;
 
 
-const int RENDER_SCALE = 2;
-const int TIME_SCALE   = 10;
-
-
-App* App::instance = nullptr;
+const int RENDER_SCALE = 5;
+const int TIME_SCALE   = 50;
 
 
 App::App(dim_t board_size, const int nb_snake)
 {
-    App::instance = this;
-
     this->board_size = board_size;
 
     for (int i = 0; i < nb_snake; ++i)
     {
         this->snakes.push_back(
-            new Snake(i, position_t(-1, -1))
+            new Snake(i, position_t(-1, -1), this)
         );
     }
 
@@ -105,6 +100,17 @@ void App::run()
             this->snakes[i]->update();
         }
 
+        //
+        int nbSnakeAlive = 0;
+        for (int i = 0; i < this->snakes.size(); ++i) {
+            if (this->snakes[i]->getLength() > 0) {
+                ++nbSnakeAlive;
+            }
+        }
+        if (nbSnakeAlive == 1) {
+            end = true;
+        }
+
         // Dessine le plateau
         this->render->draw_board();
 
@@ -167,3 +173,13 @@ Snake* App::getSnakeAtPosition(int x, int y)
 
     return r;
 }
+
+int App::getNbrSnakes() {
+    return (int)this->snakes.size();
+}
+
+Snake* App::getSnake(int index) {
+    return this->snakes[index];
+}
+
+

@@ -24,11 +24,6 @@ Render::Render(dim_t wsize, int scale)
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_CreateWindowAndRenderer(wsize.width * scale, wsize.height * scale, SDL_WINDOW_SHOWN, &window, &renderer);
 
-	if (window == nullptr || renderer == nullptr)
-	{
-		throw exception("SDL not ready ... quitting");
-	}
-
 	SDL_SetWindowTitle(window, "Snake");
 	SDL_RenderSetScale(renderer, scale, scale);
 }

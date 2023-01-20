@@ -24,16 +24,17 @@ using namespace std;
 
 // ----- Constructeur ----- //
 
-Snake::Snake(unsigned int id, position_t position)
+Snake::Snake(unsigned int id, position_t position, App* app)
 {
     this->id = id;
+    this->app = app;
 
     for (int i = 0; i < 10; ++i)
     {
         this->positions.push_back(position);
     }
 
-    pomme = new Pomme(0, position_t(0, 0), this);
+    pomme = new Pomme(position_t(0, 0), this);
 };
 
 
@@ -98,31 +99,24 @@ bool Snake::isBody(int x, int y)
 }
 
 // Coupe le serpent à la position x, y
-void Snake::split(int x, int y) {
-    size_t i = 0;
+int Snake::split(int x, int y) {
+    int i = 0;
     int split_index = -1;
 
     while (split_index == -1 && i < this->positions.size()) {
         if (this->positions[i].x == x && this->positions[i].y == y) {
-            split_index = (int)i;
+            split_index = i;
         }
         ++i;
     }
 
+    int len = 0, splitted = 0;
     if (split_index != -1) {
-        size_t len = this->positions.size() - (size_t)split_index;
+        splitted = this->positions.size() - split_index;
+        len = this->positions.size() - splitted;
         this->positions.resize(len);
-
-//        position_t copy [len];     // warning voulu
-//        for (int i = 0; i < len; ++i) {
-//            copy[i] = this->positions[i];
-//        }
-//        this->positions.resize(len);
-//        for (int i = 0; i < len; ++i) {
-//            this->positions[i] = copy[i];
-//        }
-
     }
+    return splitted;
 }
 
 
@@ -161,6 +155,20 @@ void Snake::move(MoveType direction)
 }
 
 
+void Snake::kill(Snake* attacker) {
+    positions.resize(0);
+    cout << attacker->getId() << " killed " << this->getId() << endl;
+}
+
+void Snake::addLength(int length) {
+    if (positions.size() > 0) {
+        for (int i = 0; i < length; ++i) {
+            positions.push_back(positions[positions.size() - 1]);
+        }
+    }
+}
+
+
 // Méthode exécutée pour chaque frame
 void Snake::update()
 {
@@ -193,18 +201,40 @@ void Snake::update()
             positions.push_back(positions[positions.size() - 1]);
 
             // On change la position de la pomme
-            position_t posPomme = App::instance->randomBoardPosition();
+            position_t posPomme = this->app->randomBoardPosition();
 
             while (head.x == posPomme.x && head.y == posPomme.y)
             {
-                posPomme = App::instance->randomBoardPosition();
+                posPomme = this->app->randomBoardPosition();
             }
 
             pomme->setPosition(posPomme);
         }
 
         // On vérifie si le serpent est sur un autre serpent
-        // TODO
+        head = positions[0];
+        for (int i = 0; i < this->app->getNbrSnakes(); ++i) {
+            Snake* snake = this->app->getSnake(i);
+            if (this != snake) {
+                if (snake->isBody(head.x, head.y)) {
+                    if (snake->isHead(head.x, head.y)) {
+                        if (positions.size() >= snake->getLength()) {
+                            int addLen = snake->getLength() * 0.60;
+                            addLength(addLen);
+                            snake->kill(this);
+                        } else {
+                            int addLen = this->getLength() * 0.60;
+                            snake->addLength(addLen);
+                            kill(snake);
+                        }
+                    } else {
+                        int splitted = snake->split(head.x, head.y);
+                        int addLen = splitted * 0.40;
+                        addLength(addLen);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -220,7 +250,7 @@ void Snake::draw(Render* render)
         SDL_RenderDrawPoint(renderer, positions[i].x, positions[i].y);
     }
 
-    if (pomme != nullptr)
+    if (pomme != nullptr && positions.size() > 0)
     {
         pomme->draw(render);
     }
