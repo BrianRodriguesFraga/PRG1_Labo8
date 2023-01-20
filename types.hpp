@@ -17,4 +17,6 @@ struct dim_t {
     dim_t(int w, int h) : width(w), height(h) { }
 };
 
+enum class MoveType { Left, Right, Up, Down };
+
 #endif

@@ -12,8 +12,7 @@ const int SNAKE_INIT_SIZE = 10;
 class App
 {
     public:
-        static App* instance = nullptr;
-
+        static App* instance;
 
         App(dim_t board_size, const int nb_snake);
 
@@ -27,7 +26,7 @@ class App
         void run();
 
         // Libération de la mémoire
-        void free();
+        ~App();
 
         // Retourne une position aléatoire sur le plateau
         position_t randomBoardPosition();

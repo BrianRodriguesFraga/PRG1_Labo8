@@ -18,14 +18,22 @@
 #include <random>
 
 #include "snakes.hpp"
+#include "app.hpp"
 
 using namespace std;
 
 // --- Constructeur --- //
 
-Snake::Snake(unsigned int id, position_t position) {
+Snake::Snake(unsigned int id, position_t position)
+{
     this->id = id;
-    this->positions.push_back(position);
+
+    for (int i = 0; i < 10; ++i)
+    {
+        this->positions.push_back(position);
+    }
+
+    pomme = new Pomme(0, position_t(0, 0), this);
 };
 
 
@@ -46,34 +54,45 @@ position_t Snake::getPosition() {
 }
 
 void Snake::setPosition(position_t position) {
-
+    for (int i = 0; i < positions.size(); ++i)
+    {
+        positions[i] = position;
+    }
 }
 
 Pomme* Snake::getPomme() {
-
+    return pomme;
 }
 
 // Méthodes //
 
 // Libére la mémoire
-void Snake::free() {
-
+Snake::~Snake() 
+{
+    if (this->pomme != nullptr)
+    {
+        delete this->pomme;
+    }
 }
 
 // Retourne true si la position x, y est la tête
-bool Snake::isHead(int x, int y) {
-    return this->positions[0].x == x && this->positions[0].y == y;
+bool Snake::isHead(int x, int y) 
+{
+    return (positions.size() == 0) ? false : this->positions[0].x == x && this->positions[0].y == y;
 }
 
 // Retourne true si le serpent occupe cette position
-bool Snake::isBody(int x, int y) {
+bool Snake::isBody(int x, int y)
+{
     bool r = false;
+
     for (size_t i = 0; i < this->positions.size(); ++i) {
         if (this->positions[i].x == x && this->positions[i].y == y) {
             r = true;
             break;
         }
     }
+
     return r;
 }
 
@@ -105,12 +124,103 @@ void Snake::split(int x, int y) {
     }
 }
 
-// Méthode exécutée pour chaque frame
-void Snake::update() {
 
+void Snake::move(MoveType direction)
+{
+    if (positions.size() != 0)
+    {
+        position_t newPosition = positions[0];
+
+        switch (direction)
+        {
+            case MoveType::Up:
+                newPosition.y -= 1;
+                break;
+            case MoveType::Down:
+                newPosition.y += 1;
+                break;
+            case MoveType::Left:
+                newPosition.x -= 1;
+                break;
+            case MoveType::Right:
+                newPosition.x += 1;
+                break;
+            default:
+                break;
+        }
+
+        position_t oldPosition;
+        for (int i = 0; i < positions.size(); ++i)
+        {
+            oldPosition = positions[i];
+            positions[i] = newPosition;
+            newPosition = oldPosition;
+        }
+    }
+}
+
+
+// Méthode exécutée pour chaque frame
+void Snake::update() 
+{
+    if (pomme != nullptr && positions.size() > 0)
+    {
+        position_t head = positions[0];
+        position_t posPomme = pomme->getPosition();
+
+        // On détermine la direction dans laquelle aller
+        position_t distance = position_t(posPomme.x - head.x, posPomme.y - head.y);
+
+        MoveType direction = MoveType::Right;
+
+        if (distance.x * distance.x >= distance.y * distance.y)
+        {
+            direction = (distance.x < 0) ? MoveType::Left : MoveType::Right;
+        }
+        else
+        {
+            direction = (distance.y < 0) ? MoveType::Up : MoveType::Down;
+        }
+
+        // On bouge le serpent dans la direction
+        this->move(direction);
+
+        // On vérifie si le serpent est sur la pomme
+        if (head.x == posPomme.x && head.y == posPomme.y)
+        {
+            // On ajoute 1 de longueur
+            positions.push_back(positions[positions.size() - 1]);
+
+            // On change la position de la pomme
+            position_t posPomme = App::instance->randomBoardPosition();
+
+            while (head.x == posPomme.x && head.y == posPomme.y)
+            {
+                posPomme = App::instance->randomBoardPosition();
+            }
+
+            pomme->setPosition(posPomme);
+        }
+
+        // On vérifie si le serpent est sur un autre serpent
+        // TODO
+    }
 }
 
 // Méthode exécutée après chaque frame (rendu graphique)
-void Snake::draw(Render* renderer) {
+void Snake::draw(Render* render)
+{
+    SDL_Renderer* renderer = render->getRenderer();
 
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
+    for (int i = 0; i < positions.size(); ++i)
+    {
+        SDL_RenderDrawPoint(renderer, positions[i].x, positions[i].y);
+    }
+
+    if (pomme != nullptr)
+    {
+        pomme->draw(render);
+    }
 }

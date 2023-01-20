@@ -17,6 +17,7 @@
 #define TP8_POMMES_HPP
 
 #include "types.hpp"
+#include "render.hpp"
 
 class Snake;
 
@@ -38,7 +39,7 @@ public:
     Snake* getSnake();
 
     // Méthode exécuté après chaque frame (rendu graphique)
-    void draw(Render* renderer);
+    void draw(Render* render);
 
 private:
     unsigned int id;

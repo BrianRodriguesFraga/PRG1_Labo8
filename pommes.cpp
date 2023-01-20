@@ -40,6 +40,9 @@ Snake* Pomme::getSnake() {
     return this->serpent;
 }
 
-void Pomme::draw(Render* renderer) {
-
+void Pomme::draw(Render* render) 
+{
+    SDL_Renderer* renderer = render->getRenderer();
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderDrawPoint(renderer, position.x, position.y);
 }

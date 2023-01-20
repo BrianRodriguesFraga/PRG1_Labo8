@@ -22,13 +22,14 @@
 #include "render.hpp"
 #include "pommes.hpp"
 
+
 class Snake {
 public:
     // Constructeur //
     Snake(unsigned int id, position_t position);
 
     // Libére la mémoire
-    void free();
+    ~Snake();
 
     // Set et get //
     unsigned int getId() const;
@@ -56,12 +57,15 @@ public:
     // Coupe le serpent à la position x, y
     void split(int x, int y);
 
+    // Fait bouger le serpent dans une direction
+    void move(MoveType direction);
+
 
     // Méthode exécuté pour chaque frame
     void update();
 
     // Méthode exécuté après chaque frame (rendu graphique)
-    void draw(Render* renderer);
+    void draw(Render* render);
 
 private:
     unsigned int id;
@@ -70,7 +74,6 @@ private:
 
     Pomme* pomme;
 
-    bool vie;
 };
 
 

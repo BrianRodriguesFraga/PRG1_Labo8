@@ -8,6 +8,13 @@
 using namespace std;
 
 
+const int RENDER_SCALE = 2;
+const int TIME_SCALE   = 10;
+
+
+App* App::instance = nullptr;
+
+
 App::App(dim_t board_size, const int nb_snake)
 {
     App::instance = this;
@@ -20,6 +27,8 @@ App::App(dim_t board_size, const int nb_snake)
             new Snake(i, position_t(-1, -1))
         );
     }
+
+    render = new Render(this->board_size, RENDER_SCALE);
 }
 
 
@@ -61,13 +70,27 @@ void App::run()
 
     while (!end)
     {
+        // Events
+        SDL_Event e;
+        while (SDL_PollEvent(&e))
+        {
+            switch (e.type)
+            {
+                case SDL_QUIT:
+                    end = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         // Joue un tour de jeu
         for (int i = 0; i < this->snakes.size(); ++i)
         {
             this->snakes[i]->update();
         }
 
-        // Déssine le plateau
+        // Dessine le plateau
         this->render->draw_board();
 
         for (int i = 0; i < this->snakes.size(); ++i)
@@ -75,7 +98,10 @@ void App::run()
             this->snakes[i]->draw(render);
         }
 
-        this_thread::sleep_for(chrono::milliseconds(1000));
+        this->render->update();
+
+        // Attend x ms avant de jouer le prochain "tour"
+        this_thread::sleep_for(chrono::milliseconds(TIME_SCALE));
     }
 }
 
@@ -86,13 +112,14 @@ dim_t App::getBoardSize()
 }
 
 
-void App::free()
+App::~App()
 {
     for (int i = 0; i < this->snakes.size(); ++i)
     {
-        this->snakes[i]->free();
         delete this->snakes[i];
     }
+
+    delete render;
 }
 
 
